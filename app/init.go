@@ -18,6 +18,7 @@ func InitDB() {
 	}
 	DB.AutoMigrate(&models.User{})
 	DB.AutoMigrate(&models.Sprints{})
+	DB.AutoMigrate(&models.Project{})
 }
 
 func CloseDB() error {

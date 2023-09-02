@@ -7,10 +7,12 @@ import (
 )
 
 type Sprints struct {
-	gorm.Model
-	Name      string
-	StartDate time.Time
-	EndDate   time.Time
+    gorm.Model
+    SprintID  uint   
+    Name      string
+    StartDate time.Time 
+    EndDate   time.Time
 }
+
 
 

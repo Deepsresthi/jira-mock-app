@@ -174,6 +174,78 @@ func Register() {
 			
 		})
 	
+	revel.RegisterController((*controllers1.Projects)(nil),
+		[]*revel.MethodType{
+			&revel.MethodType{
+				Name: "Index",
+				Args: []*revel.MethodArg{ 
+				},
+				RenderArgNames: map[int][]string{ 
+				},
+			},
+			&revel.MethodType{
+				Name: "List",
+				Args: []*revel.MethodArg{ 
+				},
+				RenderArgNames: map[int][]string{ 
+				},
+			},
+			&revel.MethodType{
+				Name: "New",
+				Args: []*revel.MethodArg{ 
+				},
+				RenderArgNames: map[int][]string{ 
+				},
+			},
+			&revel.MethodType{
+				Name: "Create",
+				Args: []*revel.MethodArg{ 
+					&revel.MethodArg{Name: "projectID", Type: reflect.TypeOf((*uint)(nil)) },
+					&revel.MethodArg{Name: "projectName", Type: reflect.TypeOf((*string)(nil)) },
+					&revel.MethodArg{Name: "teamName", Type: reflect.TypeOf((*string)(nil)) },
+					&revel.MethodArg{Name: "projectOwner", Type: reflect.TypeOf((*string)(nil)) },
+				},
+				RenderArgNames: map[int][]string{ 
+				},
+			},
+			&revel.MethodType{
+				Name: "Show",
+				Args: []*revel.MethodArg{ 
+					&revel.MethodArg{Name: "projectID", Type: reflect.TypeOf((*uint)(nil)) },
+				},
+				RenderArgNames: map[int][]string{ 
+				},
+			},
+			&revel.MethodType{
+				Name: "Edit",
+				Args: []*revel.MethodArg{ 
+					&revel.MethodArg{Name: "projectID", Type: reflect.TypeOf((*uint)(nil)) },
+				},
+				RenderArgNames: map[int][]string{ 
+				},
+			},
+			&revel.MethodType{
+				Name: "Update",
+				Args: []*revel.MethodArg{ 
+					&revel.MethodArg{Name: "projectID", Type: reflect.TypeOf((*uint)(nil)) },
+					&revel.MethodArg{Name: "projectName", Type: reflect.TypeOf((*string)(nil)) },
+					&revel.MethodArg{Name: "teamName", Type: reflect.TypeOf((*string)(nil)) },
+					&revel.MethodArg{Name: "projectOwner", Type: reflect.TypeOf((*string)(nil)) },
+				},
+				RenderArgNames: map[int][]string{ 
+				},
+			},
+			&revel.MethodType{
+				Name: "Delete",
+				Args: []*revel.MethodArg{ 
+					&revel.MethodArg{Name: "projectID", Type: reflect.TypeOf((*uint)(nil)) },
+				},
+				RenderArgNames: map[int][]string{ 
+				},
+			},
+			
+		})
+	
 	revel.RegisterController((*controllers1.Sprints)(nil),
 		[]*revel.MethodType{
 			&revel.MethodType{
@@ -188,9 +260,6 @@ func Register() {
 				Args: []*revel.MethodArg{ 
 				},
 				RenderArgNames: map[int][]string{ 
-					38: []string{ 
-						"sprints",
-					},
 				},
 			},
 			&revel.MethodType{
@@ -198,13 +267,14 @@ func Register() {
 				Args: []*revel.MethodArg{ 
 				},
 				RenderArgNames: map[int][]string{ 
-					42: []string{ 
+					48: []string{ 
 					},
 				},
 			},
 			&revel.MethodType{
 				Name: "Create",
 				Args: []*revel.MethodArg{ 
+					&revel.MethodArg{Name: "sprintId", Type: reflect.TypeOf((*uint)(nil)) },
 					&revel.MethodArg{Name: "name", Type: reflect.TypeOf((*string)(nil)) },
 					&revel.MethodArg{Name: "startDate", Type: reflect.TypeOf((*time.Time)(nil)) },
 					&revel.MethodArg{Name: "endDate", Type: reflect.TypeOf((*time.Time)(nil)) },
@@ -215,10 +285,10 @@ func Register() {
 			&revel.MethodType{
 				Name: "Show",
 				Args: []*revel.MethodArg{ 
-					&revel.MethodArg{Name: "id", Type: reflect.TypeOf((*uint)(nil)) },
+					&revel.MethodArg{Name: "sprintId", Type: reflect.TypeOf((*uint)(nil)) },
 				},
 				RenderArgNames: map[int][]string{ 
-					84: []string{ 
+					89: []string{ 
 						"sprint",
 					},
 				},
@@ -226,10 +296,10 @@ func Register() {
 			&revel.MethodType{
 				Name: "Edit",
 				Args: []*revel.MethodArg{ 
-					&revel.MethodArg{Name: "id", Type: reflect.TypeOf((*uint)(nil)) },
+					&revel.MethodArg{Name: "sprintId", Type: reflect.TypeOf((*uint)(nil)) },
 				},
 				RenderArgNames: map[int][]string{ 
-					101: []string{ 
+					106: []string{ 
 						"sprint",
 					},
 				},
@@ -237,7 +307,7 @@ func Register() {
 			&revel.MethodType{
 				Name: "Update",
 				Args: []*revel.MethodArg{ 
-					&revel.MethodArg{Name: "id", Type: reflect.TypeOf((*uint)(nil)) },
+					&revel.MethodArg{Name: "sprintId", Type: reflect.TypeOf((*uint)(nil)) },
 					&revel.MethodArg{Name: "name", Type: reflect.TypeOf((*string)(nil)) },
 					&revel.MethodArg{Name: "startDate", Type: reflect.TypeOf((*time.Time)(nil)) },
 					&revel.MethodArg{Name: "endDate", Type: reflect.TypeOf((*time.Time)(nil)) },
@@ -248,7 +318,7 @@ func Register() {
 			&revel.MethodType{
 				Name: "Delete",
 				Args: []*revel.MethodArg{ 
-					&revel.MethodArg{Name: "id", Type: reflect.TypeOf((*uint)(nil)) },
+					&revel.MethodArg{Name: "sprintId", Type: reflect.TypeOf((*uint)(nil)) },
 				},
 				RenderArgNames: map[int][]string{ 
 				},

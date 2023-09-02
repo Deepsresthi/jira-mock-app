@@ -21,7 +21,6 @@ func (c Sprints) Index() revel.Result {
 }
 
 func (c Sprints) List() revel.Result {
-
 	// Apply JWT authorization middleware to restrict access
 	err := middleware.TokenAuth(c.Controller, "List")
 	if err != nil {
@@ -35,25 +34,31 @@ func (c Sprints) List() revel.Result {
 		return c.RenderError(err)
 	}
 
-	return c.Render(sprints)
+	// Check if there are sprints
+	if len(sprints) == 0 {
+		return c.RenderJSON(map[string]interface{}{
+			"message": "No sprints",
+		})
+	}
+
+	return c.RenderJSON(sprints)
 }
 
 func (c Sprints) New() revel.Result {
 	return c.Render()
 }
 
-func (c Sprints) Create(name string, startDate, endDate time.Time) revel.Result {
+func (c Sprints) Create(sprintId uint, name string, startDate, endDate time.Time) revel.Result {
 	// Apply JWT authorization middleware to restrict access
 	//print
 	err := middleware.TokenAuth(c.Controller, "Create")
 	if err != nil {
-		// fmt.Printf(string(err))
-		// return c.Forbidden("Access denied")
-		return err
+		return c.Forbidden("Access denied")
 	}
 
 	db := app.DB
 	newSprint := models.Sprints{
+		SprintID:  sprintId,
 		Name:      name,
 		StartDate: startDate,
 		EndDate:   endDate,
@@ -67,16 +72,16 @@ func (c Sprints) Create(name string, startDate, endDate time.Time) revel.Result 
 	return c.Redirect(Sprints.List)
 }
 
-func (c Sprints) Show(id uint) revel.Result {
+func (c Sprints) Show(sprintId uint) revel.Result {
 	// Apply JWT authorization middleware to restrict access
-	err := middleware.TokenAuth(c.Controller, "Create")
+	err := middleware.TokenAuth(c.Controller, "Show")
 	if err != nil {
 		return c.Forbidden("Access denied")
 	}
 
 	db := app.DB
 	var sprint models.Sprints
-	if err := db.First(&sprint, id).Error; err != nil {
+	if err := db.Where("sprint_id = ?", sprintId).First(&sprint).Error; err != nil {
 		revel.AppLog.Errorf("Error fetching sprint: %v", err)
 		return c.NotFound("Sprint not found")
 	}
@@ -84,16 +89,16 @@ func (c Sprints) Show(id uint) revel.Result {
 	return c.Render(sprint)
 }
 
-func (c Sprints) Edit(id uint) revel.Result {
+func (c Sprints) Edit(sprintId uint) revel.Result {
 	// Apply JWT authorization middleware to restrict access
-	err := middleware.TokenAuth(c.Controller, "Create")
+	err := middleware.TokenAuth(c.Controller, "Edit")
 	if err != nil {
 		return c.Forbidden("Access denied")
 	}
 
 	db := app.DB
 	var sprint models.Sprints
-	if err := db.First(&sprint, id).Error; err != nil {
+	if err := db.Where("sprint_id = ?", sprintId).First(&sprint).Error; err != nil {
 		revel.AppLog.Errorf("Error fetching sprint: %v", err)
 		return c.NotFound("Sprint not found")
 	}
@@ -101,16 +106,16 @@ func (c Sprints) Edit(id uint) revel.Result {
 	return c.Render(sprint)
 }
 
-func (c Sprints) Update(id uint, name string, startDate, endDate time.Time) revel.Result {
+func (c Sprints) Update(sprintId uint, name string, startDate, endDate time.Time) revel.Result {
 	// Apply JWT authorization middleware to restrict access
-	err := middleware.TokenAuth(c.Controller, "Create")
+	err := middleware.TokenAuth(c.Controller, "Update")
 	if err != nil {
 		return c.Forbidden("Access denied")
 	}
 
 	db := app.DB
 	var sprint models.Sprints
-	if err := db.First(&sprint, id).Error; err != nil {
+	if err := db.Where("sprint_id = ?", sprintId).First(&sprint).Error; err != nil {
 		revel.AppLog.Errorf("Error fetching sprint: %v", err)
 		return c.NotFound("Sprint not found")
 	}
@@ -126,32 +131,23 @@ func (c Sprints) Update(id uint, name string, startDate, endDate time.Time) reve
 	return c.Redirect(Sprints.List)
 }
 
-func (c Sprints) Delete(id uint) revel.Result {
+func (c Sprints) Delete(sprintId uint) revel.Result {
 	// Apply JWT authorization middleware to restrict access
-	err := middleware.TokenAuth(c.Controller, "Create")
+	err := middleware.TokenAuth(c.Controller, "Delete")
 	if err != nil {
 		return c.Forbidden("Access denied")
 	}
 
 	db := app.DB
 	var sprint models.Sprints
-	if err := db.First(&sprint, id).Error; err != nil {
+	if err := db.Where("sprint_id = ?", sprintId).First(&sprint).Error; err != nil {
 		revel.AppLog.Errorf("Error fetching sprint: %v", err)
 		return c.NotFound("Sprint not found")
 	}
 
-	if err := c.DB.Delete(&sprint).Error; err != nil {
+	if err := db.Delete(&sprint).Error; err != nil {
 		revel.AppLog.Errorf("Error deleting sprint: %v", err)
 	}
 
 	return c.Redirect(Sprints.List)
 }
-
-// func (c Sprints) Begin() revel.Result {
-// 	return middleware.TokenAuth(c.Controller, c.Action)
-// }
-
-// func (c Sprints) ProtectedAction() revel.Result {
-// 	middleware.TokenAuth(c.Controller, c.Action)
-// 	return c.RenderText("Protected Action")
-// }

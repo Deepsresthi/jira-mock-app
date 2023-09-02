@@ -153,6 +153,89 @@ func (_ tAuth) DoSignup(
 }
 
 
+type tProjects struct {}
+var Projects tProjects
+
+
+func (_ tProjects) Index(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Projects.Index", args).URL
+}
+
+func (_ tProjects) List(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Projects.List", args).URL
+}
+
+func (_ tProjects) New(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Projects.New", args).URL
+}
+
+func (_ tProjects) Create(
+		projectID uint,
+		projectName string,
+		teamName string,
+		projectOwner string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "projectID", projectID)
+	revel.Unbind(args, "projectName", projectName)
+	revel.Unbind(args, "teamName", teamName)
+	revel.Unbind(args, "projectOwner", projectOwner)
+	return revel.MainRouter.Reverse("Projects.Create", args).URL
+}
+
+func (_ tProjects) Show(
+		projectID uint,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "projectID", projectID)
+	return revel.MainRouter.Reverse("Projects.Show", args).URL
+}
+
+func (_ tProjects) Edit(
+		projectID uint,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "projectID", projectID)
+	return revel.MainRouter.Reverse("Projects.Edit", args).URL
+}
+
+func (_ tProjects) Update(
+		projectID uint,
+		projectName string,
+		teamName string,
+		projectOwner string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "projectID", projectID)
+	revel.Unbind(args, "projectName", projectName)
+	revel.Unbind(args, "teamName", teamName)
+	revel.Unbind(args, "projectOwner", projectOwner)
+	return revel.MainRouter.Reverse("Projects.Update", args).URL
+}
+
+func (_ tProjects) Delete(
+		projectID uint,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "projectID", projectID)
+	return revel.MainRouter.Reverse("Projects.Delete", args).URL
+}
+
+
 type tSprints struct {}
 var Sprints tSprints
 
@@ -179,12 +262,14 @@ func (_ tSprints) New(
 }
 
 func (_ tSprints) Create(
+		sprintId uint,
 		name string,
 		startDate interface{},
 		endDate interface{},
 		) string {
 	args := make(map[string]string)
 	
+	revel.Unbind(args, "sprintId", sprintId)
 	revel.Unbind(args, "name", name)
 	revel.Unbind(args, "startDate", startDate)
 	revel.Unbind(args, "endDate", endDate)
@@ -192,32 +277,32 @@ func (_ tSprints) Create(
 }
 
 func (_ tSprints) Show(
-		id uint,
+		sprintId uint,
 		) string {
 	args := make(map[string]string)
 	
-	revel.Unbind(args, "id", id)
+	revel.Unbind(args, "sprintId", sprintId)
 	return revel.MainRouter.Reverse("Sprints.Show", args).URL
 }
 
 func (_ tSprints) Edit(
-		id uint,
+		sprintId uint,
 		) string {
 	args := make(map[string]string)
 	
-	revel.Unbind(args, "id", id)
+	revel.Unbind(args, "sprintId", sprintId)
 	return revel.MainRouter.Reverse("Sprints.Edit", args).URL
 }
 
 func (_ tSprints) Update(
-		id uint,
+		sprintId uint,
 		name string,
 		startDate interface{},
 		endDate interface{},
 		) string {
 	args := make(map[string]string)
 	
-	revel.Unbind(args, "id", id)
+	revel.Unbind(args, "sprintId", sprintId)
 	revel.Unbind(args, "name", name)
 	revel.Unbind(args, "startDate", startDate)
 	revel.Unbind(args, "endDate", endDate)
@@ -225,11 +310,11 @@ func (_ tSprints) Update(
 }
 
 func (_ tSprints) Delete(
-		id uint,
+		sprintId uint,
 		) string {
 	args := make(map[string]string)
 	
-	revel.Unbind(args, "id", id)
+	revel.Unbind(args, "sprintId", sprintId)
 	return revel.MainRouter.Reverse("Sprints.Delete", args).URL
 }
 

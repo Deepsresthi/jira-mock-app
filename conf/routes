@@ -31,6 +31,7 @@ POST    /login                  Auth.DoLogin
 GET     /signup                 Auth.Signup
 POST    /signup                 Auth.DoSignup
 
+# Sprint Routes
 GET     /sprints                    Sprints.Index
 GET     /sprints/list               Sprints.List
 GET     /sprints/new                Sprints.New
@@ -39,3 +40,14 @@ GET     /sprints/show/:id           Sprints.Show
 GET     /sprints/edit/:id           Sprints.Edit
 POST    /sprints/update/:id         Sprints.Update
 POST    /sprints/delete/:id         Sprints.Delete
+
+# Project Routes
+GET     /projects                    Projects.Index
+GET     /projects/list               Projects.List
+GET     /projects/new                Projects.New
+POST    /projects/create             Projects.Create
+GET     /projects/show/:id           Projects.Show
+GET     /projects/edit/:id           Projects.Edit
+POST    /projects/update/:id         Projects.Update
+POST    /projects/delete/:id         Projects.Delete
+

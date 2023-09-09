@@ -33,18 +33,7 @@ func TokenAuth(c *revel.Controller, actionName string) revel.Result {
 
 	// Extract the token from the "Bearer <token>" format
 	tokenStr := strings.TrimPrefix(authHeader, "Bearer ") //check
-
-	// // Check if the token key exists in the cache
-	// cacheKey := "token_" + tokenStr
-
-	// // Define a placeholder value
-	// var placeholderValue interface{}
-
-	// // Use cache.Get to check if the key exists
-	// if err := cache.Get(cacheKey, &placeholderValue); err != nil {
-	// 	return c.Forbidden("Access Denied: Invalid or expired token")
-	// }
-
+	
 	token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
 		if token.Method != jwt.SigningMethodHS256 {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])

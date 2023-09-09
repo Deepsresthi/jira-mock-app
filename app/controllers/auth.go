@@ -53,19 +53,6 @@ func (c Auth) Signup() revel.Result {
 }
 
 func (c Auth) DoSignup(username, mailID, password string) revel.Result {
-	// var requestBody struct {
-	// 	Username     string `json:"username"`
-	// 	MailID       string `json:"mailID"`
-	// 	PasswordHash string `json:"password"`
-	// }
-
-	// err := c.Params.BindJSON(&requestBody)
-	// if err != nil {
-	// 	return c.RenderJSON(map[string]interface{}{
-	// 		"error": "Invalid JSON format",
-	// 	})
-	// }
-
 	db := app.DB // Directly access the DB instance
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
